@@ -1,0 +1,38 @@
+﻿@page
+@model TemplatesModel
+@{
+    ViewData["Title"] = "Templates";
+}
+
+<div class="page-title">Notification templates</div>
+
+@if (!Model.Templates.Any())
+{
+    <div class="card">
+        <p style="font-size:14px;color:#888;">No templates found.</p>
+    </div>
+}
+
+@foreach (var template in Model.Templates)
+{
+    <div class="card">
+        <div class="card-title">
+            @template.NotificationType template
+            <div style="display:flex;gap:8px;align-items:center;">
+                <span class="account-pill">@template.Channel</span>
+                @if (template.IsActive)
+                {
+                    <span class="badge badge-active">Active</span>
+                }
+                else
+                {
+                    <span class="badge badge-failed">Inactive</span>
+                }
+            </div>
+        </div>
+        <div class="template-body">@template.Template.Replace("\\n", "\n")</div>
+        <div style="font-size:11px;color:#888;margin-top:8px;">
+            Created @template.CreatedAt.ToString("dd MMM yyyy")
+        </div>
+    </div>
+}

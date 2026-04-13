@@ -1,0 +1,65 @@
+﻿@page
+@model AccountsModel
+@{
+    ViewData["Title"] = "Accounts";
+}
+
+<div class="page-title">Accounts</div>
+
+@if (Model.SuccessMessage != null)
+{
+    <div class="alert alert-success">@Model.SuccessMessage</div>
+}
+@if (Model.ErrorMessage != null)
+{
+    <div class="alert alert-error">@Model.ErrorMessage</div>
+}
+
+<div class="card">
+    <div class="card-title">Create new account</div>
+    <form method="post">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Full name</label>
+                <input type="text" asp-for="FullName" placeholder="John Doe" required />
+            </div>
+            <div class="form-group">
+                <label>WhatsApp number</label>
+                <input type="text" asp-for="PhoneNumber" placeholder="whatsapp:+2348012345678" required />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Initial deposit (₦)</label>
+                <input type="number" asp-for="InitialDeposit" placeholder="50000" min="0" required />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Create account</button>
+    </form>
+</div>
+
+<div class="card">
+    <div class="card-title">
+        All accounts
+        <span class="account-pill">@Model.Accounts.Count total</span>
+    </div>
+    @if (!Model.Accounts.Any())
+    {
+        <p style="font-size:14px;color:#888;">No accounts yet. Create one above.</p>
+    }
+    @foreach (var account in Model.Accounts)
+    {
+        <div class="tx-item">
+            <div class="tx-icon credit">@account.FullName[0]</div>
+            <div class="tx-info">
+                <div class="tx-desc">
+                    @account.FullName
+                    <span class="account-pill">@account.AccountNumber</span>
+                    <span class="account-pill">ID: @account.Id</span>
+                </div>
+                <div class="tx-date">@account.PhoneNumber · Created @account.CreatedAt.ToString("dd MMM yyyy")</div>
+            </div>
+            <div class="tx-amount credit">₦@account.Balance.ToString("N2")</div>
+        </div>
+    }
+</div>

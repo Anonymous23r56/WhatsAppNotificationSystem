@@ -1,0 +1,79 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="page-title">Dashboard</div>
+
+<div class="cards-grid">
+    <div class="metric-card">
+        <div class="metric-label">Total accounts</div>
+        <div class="metric-value">@Model.TotalAccounts</div>
+    </div>
+    <div class="metric-card">
+        <div class="metric-label">Sent</div>
+        <div class="metric-value green">@Model.TotalSent</div>
+    </div>
+    <div class="metric-card">
+        <div class="metric-label">Pending</div>
+        <div class="metric-value amber">@Model.TotalPending</div>
+    </div>
+    <div class="metric-card">
+        <div class="metric-label">Failed</div>
+        <div class="metric-value red">@Model.TotalFailed</div>
+    </div>
+</div>
+
+<div class="two-col">
+    <div class="card">
+        <div class="card-title">Delivery breakdown</div>
+        @{
+            var total = Model.TotalSent + Model.TotalPending + Model.TotalFailed;
+            var sentPct = total > 0 ? (double)Model.TotalSent / total * 100 : 0;
+            var pendPct = total > 0 ? (double)Model.TotalPending / total * 100 : 0;
+            var failPct = total > 0 ? (double)Model.TotalFailed / total * 100 : 0;
+        }
+        <div class="bar-wrap">
+            <div class="bar-label"><span>Sent</span><span>@Model.TotalSent</span></div>
+            <div class="bar-bg"><div class="bar-fill" style="width:@sentPct%;background:#1D9E75"></div></div>
+        </div>
+        <div class="bar-wrap">
+            <div class="bar-label"><span>Pending</span><span>@Model.TotalPending</span></div>
+            <div class="bar-bg"><div class="bar-fill" style="width:@pendPct%;background:#BA7517"></div></div>
+        </div>
+        <div class="bar-wrap">
+            <div class="bar-label"><span>Failed</span><span>@Model.TotalFailed</span></div>
+            <div class="bar-bg"><div class="bar-fill" style="width:@failPct%;background:#D85A30"></div></div>
+        </div>
+        <div style="margin-top:1rem;font-size:13px;color:#888;">
+            Success rate: <strong style="color:#1D9E75;">@Model.SuccessRate</strong>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-title">Recent notifications</div>
+        @if (!Model.RecentNotifications.Any())
+        {
+            <p style="font-size:14px;color:#888;">No notifications yet.</p>
+        }
+        @foreach (var n in Model.RecentNotifications)
+        {
+            var badgeClass = n.Status switch
+            {
+                "Sent" => "badge-sent",
+                "Failed" => "badge-failed",
+                _ => "badge-pending"
+            };
+            <div class="tx-item">
+                <div class="tx-info">
+                    <div class="tx-desc">@n.AccountNumber · @n.TransactionRef</div>
+                    <div class="tx-date">@n.CreatedAt.ToString("dd MMM yyyy, hh:mm tt")</div>
+                </div>
+                <div style="text-align:right;">
+                    <div style="font-size:13px;font-weight:500;">₦@n.Amount.ToString("N2")</div>
+                    <span class="badge @badgeClass">@n.Status</span>
+                </div>
+            </div>
+        }
+    </div>
+</div>

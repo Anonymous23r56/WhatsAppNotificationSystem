@@ -1,0 +1,67 @@
+﻿@page
+@model NotificationsModel
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<div class="page-title">Notifications</div>
+
+<div class="cards-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="metric-card">
+        <div class="metric-label">Sent</div>
+        <div class="metric-value green">@Model.TotalSent</div>
+    </div>
+    <div class="metric-card">
+        <div class="metric-label">Pending</div>
+        <div class="metric-value amber">@Model.TotalPending</div>
+    </div>
+    <div class="metric-card">
+        <div class="metric-label">Failed</div>
+        <div class="metric-value red">@Model.TotalFailed</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">
+        All notifications
+        <div style="display:flex;gap:6px;">
+            <a href="/Notifications" class="btn btn-sm @(Model.Filter == null || Model.Filter == "All" ? "btn-primary" : "")">All</a>
+            <a href="/Notifications?Filter=Sent" class="btn btn-sm @(Model.Filter == "Sent" ? "btn-primary" : "")">Sent</a>
+            <a href="/Notifications?Filter=Pending" class="btn btn-sm @(Model.Filter == "Pending" ? "btn-primary" : "")">Pending</a>
+            <a href="/Notifications?Filter=Failed" class="btn btn-sm @(Model.Filter == "Failed" ? "btn-primary" : "")">Failed</a>
+        </div>
+    </div>
+    @if (!Model.Notifications.Any())
+    {
+        <p style="font-size:14px;color:#888;">No notifications found.</p>
+    }
+    @foreach (var n in Model.Notifications)
+    {
+        var badgeClass = n.Status switch
+        {
+            "Sent" => "badge-sent",
+            "Failed" => "badge-failed",
+            _ => "badge-pending"
+        };
+        <div class="tx-item">
+            <div class="tx-info">
+                <div class="tx-desc" style="white-space:pre-line;font-size:13px;">@n.Message</div>
+                <div class="tx-date" style="margin-top:4px;">
+                    @n.CreatedAt.ToString("dd MMM yyyy, hh:mm tt") · @n.PhoneNumber
+                    @if (n.SentAt.HasValue)
+                    {
+                        <span> · Sent @n.SentAt.Value.ToString("hh:mm tt")</span>
+                    }
+                    @if (n.ErrorMessage != null)
+                    {
+                        <span style="color:#D85A30;"> · @n.ErrorMessage</span>
+                    }
+                </div>
+            </div>
+            <div style="text-align:right;min-width:80px;">
+                <div style="font-size:13px;font-weight:500;margin-bottom:4px;">₦@n.Amount.ToString("N2")</div>
+                <span class="badge @badgeClass">@n.Status</span>
+            </div>
+        </div>
+    }
+</div>

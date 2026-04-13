@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NotifyWatch</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="app">
+        <div class="sidebar">
+            <div class="logo"><span>Notify</span>Watch</div>
+            <a class="nav-item @(ViewContext.RouteData.Values["page"]?.ToString() == "/Index" ? "active" : "")" href="/">
+                <div class="nav-dot"></div> Dashboard
+            </a>
+            <a class="nav-item @(ViewContext.RouteData.Values["page"]?.ToString() == "/Accounts" ? "active" : "")" href="/Accounts">
+                <div class="nav-dot"></div> Accounts
+            </a>
+            <a class="nav-item @(ViewContext.RouteData.Values["page"]?.ToString() == "/Transactions" ? "active" : "")" href="/Transactions">
+                <div class="nav-dot"></div> Transactions
+            </a>
+            <a class="nav-item @(ViewContext.RouteData.Values["page"]?.ToString() == "/Notifications" ? "active" : "")" href="/Notifications">
+                <div class="nav-dot"></div> Notifications
+            </a>
+            <a class="nav-item @(ViewContext.RouteData.Values["page"]?.ToString() == "/Templates" ? "active" : "")" href="/Templates">
+                <div class="nav-dot"></div> Templates
+            </a>
+        </div>
+        <div class="main">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

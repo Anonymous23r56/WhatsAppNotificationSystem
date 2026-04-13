@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="docker-compose.yml" />
+  </Folder>
+  <Project Path="CronJob/CronJob.csproj" />
+  <Project Path="NotificationApi/NotificationApi.csproj" />
+  <Project Path="NotificationConsumer/NotificationConsumer.csproj" />
+  <Project Path="NotificationDashboard/NotificationDashboard.csproj" Id="631547e8-a5b4-4aca-8599-0dc21a11507f" />
+  <Project Path="Shared/Shared.csproj" />
+</Solution>
