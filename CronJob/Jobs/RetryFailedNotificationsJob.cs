@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Quartz;
 using CronJob.Services;
 using Shared.Data;
+using CronJob.Services.Interfaces;
 
 
 namespace CronJob.Jobs
@@ -13,12 +14,12 @@ namespace CronJob.Jobs
     public class RetryFailedNotificationsJob : IJob
     {
         private readonly AppDbContext _db;
-        private readonly TwilioWhatsAppService _twilioService;
+        private readonly ITwilioWhatsAppService _twilioService;
         private readonly ILogger<RetryFailedNotificationsJob> _logger;
 
         public RetryFailedNotificationsJob(
             AppDbContext db,
-            TwilioWhatsAppService twilioService,
+            ITwilioWhatsAppService twilioService,
             ILogger<RetryFailedNotificationsJob> logger)
         {
             _db = db;

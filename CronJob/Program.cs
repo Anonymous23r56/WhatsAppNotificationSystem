@@ -1,5 +1,6 @@
 using CronJob.Jobs;
 using CronJob.Services;
+using CronJob.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
 using Shared.Data;
@@ -11,8 +12,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration
         .GetConnectionString("DefaultConnection")));
 
-// Twilio Service
-builder.Services.AddSingleton<TwilioWhatsAppService>();
+// Register interface with implementation
+builder.Services.AddSingleton<ITwilioWhatsAppService, TwilioWhatsAppService>();
 
 // Quartz Scheduler
 builder.Services.AddQuartz(q =>

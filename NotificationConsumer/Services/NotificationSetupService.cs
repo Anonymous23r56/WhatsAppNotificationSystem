@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using NotificationConsumer.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Shared.Data;
 using Shared.Models;
 
 namespace NotificationConsumer.Services
 {
-    public class NotificationSetupService
+    public class NotificationSetupService : INotificationSetupService
     {
         private readonly AppDbContext _db;
 

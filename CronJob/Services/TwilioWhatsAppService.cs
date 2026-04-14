@@ -4,10 +4,11 @@ using System.Text;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
+using CronJob.Services.Interfaces;
 
 namespace CronJob.Services
 {
-    public class TwilioWhatsAppService
+    public class TwilioWhatsAppService : ITwilioWhatsAppService
     {
         private readonly string _fromNumber;
         private readonly ILogger<TwilioWhatsAppService> _logger;

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using NotificationConsumer.Services;
 using NotificationConsumer.Workers;
 using Shared.Data;
+using NotificationConsumer.Services.Interfaces;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -11,7 +12,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         .GetConnectionString("DefaultConnection")));
 
 // Services
-builder.Services.AddSingleton<TwilioWhatsAppService>();
+// Register interfaces with implementations
+builder.Services.AddSingleton<ITwilioWhatsAppService, TwilioWhatsAppService>();
+builder.Services.AddScoped<INotificationSetupService, NotificationSetupService>();
+builder.Services.AddScoped<INotificationLogService, NotificationLogService>();
+
 
 // Background Worker
 builder.Services.AddHostedService<KafkaConsumerWorker>();

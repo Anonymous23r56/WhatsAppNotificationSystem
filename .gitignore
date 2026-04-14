@@ -5,6 +5,21 @@ obj/
 *.user
 *.suo
 
+
+# App settings with secrets 
+**/appsettings.json
+**/appsettings.*json
+
+# Keep the template 
+!**/appsettings.example.json
+
+# Docker volumes 
+*.db
+
+# Rider/VS
+.idea/
+*.DotSettings.user
+
 # Build outputs
 Debug/
 Release/

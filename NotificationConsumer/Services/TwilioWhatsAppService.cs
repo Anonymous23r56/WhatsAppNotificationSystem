@@ -5,10 +5,11 @@ using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 using Twilio.Exceptions;
+using NotificationConsumer.Services.Interfaces;
 
 namespace NotificationConsumer.Services
 {
-    public class TwilioWhatsAppService
+    public class TwilioWhatsAppService : ITwilioWhatsAppService
     {
         private readonly string _fromNumber;
         private readonly ILogger<TwilioWhatsAppService> _logger;

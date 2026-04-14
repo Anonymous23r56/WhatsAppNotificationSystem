@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using Shared.Data;
 using Shared.Models;
+using NotificationConsumer.Services.Interfaces;
 
 namespace NotificationConsumer.Services
 {
-    public class NotificationLogService
+    public class NotificationLogService : INotificationLogService
     {
         private readonly AppDbContext _db;
 

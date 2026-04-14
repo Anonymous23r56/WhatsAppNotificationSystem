@@ -8,19 +8,20 @@ using Shared.Data;
 using Shared.Events;
 using Shared.Models;
 using System.Text.Json;
+using NotificationConsumer.Services.Interfaces;
 
 namespace NotificationConsumer.Workers
 {
     public class KafkaConsumerWorker : BackgroundService
     {
         private readonly IServiceScopeFactory _scopeFactory;
-        private readonly TwilioWhatsAppService _twilioService;
+        private readonly ITwilioWhatsAppService _twilioService;
         private readonly ILogger<KafkaConsumerWorker> _logger;
         private readonly IConfiguration _config;
 
         public KafkaConsumerWorker(
             IServiceScopeFactory scopeFactory,
-            TwilioWhatsAppService twilioService,
+            ITwilioWhatsAppService twilioService,
             ILogger<KafkaConsumerWorker> logger,
             IConfiguration config)
         {
