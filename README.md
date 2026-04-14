@@ -1,6 +1,6 @@
 # WhatsApp Notification System
 
-<<<<<<< HEAD
+
 A distributed, event-driven WhatsApp notification system built with C# and ASP.NET Core. The system processes banking transactions and delivers real-time WhatsApp alerts to users via Twilio.
 
 ---
@@ -285,4 +285,3 @@ An enterprise-grade, event-driven notification system that processes banking tra
 
 ---
 
->>>>>>> 5473732949f48ac82085a13ed039a6ef3236f10b
